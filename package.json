@@ -1,0 +1,22 @@
+{
+  "name": "units-6-7-project-react-chat-backend",
+  "version": "1.0.0",
+  "description": "This is your first pair/group coding project!",
+  "main": "index.js",
+  "type":"commonjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zgoodman27/units-6-7-project-react-chat-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+
+  "bugs": {
+    "url": "https://github.com/zgoodman27/units-6-7-project-react-chat-backend/issues"
+  },
+  "homepage": "https://github.com/zgoodman27/units-6-7-project-react-chat-backend#readme"
+}
