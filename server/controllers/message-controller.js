@@ -43,8 +43,24 @@ exports.updateMessage = async (req, res) => {
     if (!updatedMessage) {
       return res.status(404).json({ error: "Message not found" });
     }
+    res.status(200).json(updatedMessage, "Message updated successfully");
   } catch (error) {
     console.error("Error updating message:", error);
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// controller to delete a message
+export.deleteMesage = async (req, res) => {
+    try {
+        
+        const deletedMessage = await message.findByIdAndDelete(messageId);
+        if (!deletedMessage) {
+            return res.status(404).json({error: "Message not found"});
+        }
+        res.status(200).json({message: "Message deleted successfully"});
+    } catch (error) {
+        console.error("Error deleting message:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+}
