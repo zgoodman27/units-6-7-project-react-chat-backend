@@ -15,6 +15,10 @@ exports.getMessages = async (req, res) => {
 exports.createMessage = async (req, res) => {
   try {
     const { user, body, room } = req.body;
+    //basic validation
+    if (!user || !body || !room) {
+      return res.status(400).json({ error: "All fields are required" });
+    }
     const newMessage = new message({
       user,
       body,
