@@ -37,7 +37,7 @@ exports.updateMessage = async (req, res) => {
   try {
     const messageId = req.params.id;
     const { body } = req.body;
-    const updatedMessage = await message.findByIdAndUpdate(messageId, body, {
+    const updatedMessage = await message.findByIdAndUpdate(messageId, { body }, {
       new: true,
     });
     if (!updatedMessage) {
@@ -51,9 +51,9 @@ exports.updateMessage = async (req, res) => {
 };
 
 // controller to delete a message
-export.deleteMesage = async (req, res) => {
+exports.deleteMessage = async (req, res) => {
     try {
-        
+        const messageId = req.params.id;
         const deletedMessage = await message.findByIdAndDelete(messageId);
         if (!deletedMessage) {
             return res.status(404).json({error: "Message not found"});

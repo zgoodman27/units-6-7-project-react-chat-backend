@@ -1,7 +1,7 @@
 // using modules from mongoose
 const { Schema, model } = require("mongoose");
 
-const roomSchema = new schema({
+const roomSchema = new Schema({
   name: {
     type: String,
     required: true,
