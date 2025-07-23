@@ -1,5 +1,5 @@
 // using modules from mongoose
-const { Schema, model } = require("mongoose");
+const { Schema, model, default: mongoose } = require("mongoose");
 
 const roomSchema = new Schema({
   name: {
@@ -10,12 +10,15 @@ const roomSchema = new Schema({
     type: String,
     required: true,
   },
-  addedUsers: {
-    type: Array,
-    required: true,
-    unique: true,
-  },
-});
+  addedUsers: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference to the User model
+  }],
+  createdBy: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", // Reference to the User model
+  }],
+}, { timestamps: true });
 
 // create the user model using this schema
 module.exports = model("Room", roomSchema);
