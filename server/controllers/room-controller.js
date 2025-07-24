@@ -9,6 +9,20 @@ exports.getRooms = async (req, res) => {
     res.status(500).json({ message: "Error fetching rooms" });
   }
 };
+// controller to get a specific room by ID
+exports.getRoomById = async (req, res) => {
+    try {
+        const roomId = req.params.id;
+        const foundRoom = await room.findById(roomId);
+        if (!foundRoom) {
+          return res.status(404).json({ message: "Room not found" });
+        }
+        res.status(200).json(foundRoom);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching room" });
+    }
+};
+
 // controller to create a new room
 exports.createRoom = async (req, res) => {
   try {

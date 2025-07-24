@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+const User = require("../schemas/user.model"); // Import the User model
 // Middleware for JWT authentication
 const validateSession = async (req, res, next) => {
   try {
