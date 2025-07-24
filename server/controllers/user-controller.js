@@ -1,6 +1,6 @@
 // User controller
 const User = require("../schemas/user.model");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 // signup new user
