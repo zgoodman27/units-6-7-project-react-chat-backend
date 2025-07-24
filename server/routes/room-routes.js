@@ -1,7 +1,7 @@
 // import the modules
 const { Router } = require("express");
 const { validateSession } = require("../middleware/validation");
-const { getRoom, getAllRooms, createRoom } = require("../controllers/room-controller");
+const { getAllRooms, createRoom } = require("../controllers/room-controller");
 const { get } = require("mongoose");
 
 // create a new Router instance
