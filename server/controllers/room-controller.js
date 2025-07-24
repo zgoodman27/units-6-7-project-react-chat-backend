@@ -9,19 +9,6 @@ exports.getRooms = async (req, res) => {
     res.status(500).json({ message: "Error fetching rooms" });
   }
 };
-// controller to get a specific room by ID
-exports.getRoomById = async (req, res) => {
-    try {
-        const roomId = req.params.id;
-        const foundRoom = await room.findById(roomId);
-        if (!foundRoom) {
-          return res.status(404).json({ message: "Room not found" });
-        }
-        res.status(200).json(foundRoom);
-    } catch (error) {
-        res.status(500).json({ message: "Error fetching room" });
-    }
-};
 
 // controller to create a new room
 exports.createRoom = async (req, res) => {
@@ -41,5 +28,29 @@ exports.createRoom = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Error creating room" });
     console.error(error);
+  }
+};
+
+exports.updateRoom = async (req, res) => {
+  try {
+    const updatedRoom = await room.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!updatedRoom)
+      return res.status(404).json({ message: "Room not found." });
+    res.json(updatedRoom);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+exports.deleteRoom = async (req, res) => {
+  try {
+    const deletedRoom = await room.findByIdAndDelete(req.params.id);
+    if (!deletedRoom)
+      return res.status(404).json({ message: "Room not found." });
+    res.json({ message: "Room deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
