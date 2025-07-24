@@ -1,14 +1,14 @@
 // import the modules
 const { Router } = require("express");
 const { validateSession } = require("../middleware/validation");
-const { getAllRooms, createRoom } = require("../controllers/room-controller");
+const { getRooms, createRoom } = require("../controllers/room-controller");
 const { get } = require("mongoose");
 
 // create a new Router instance
 const router = Router();
 
 // GET - /rooms/all - fetch all rooms
-router.get("/all", getAllRooms);
+router.get("/all", getRooms);
 
 // POST - /rooms/create
 router.post("/create", validateSession, createRoom);
