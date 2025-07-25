@@ -19,10 +19,10 @@ router.get("/all", getRooms);
 router.post("/create", validateSession, createRoom);
 
 // UPDATE - /rooms/update
-router.put("/update", validateSession, updateRoom);
+router.put("/update/:id", validateSession, updateRoom);
 
 // DELETE - /rooms/delete
-router.delete("/delete", validateSession, deleteRoom);
+router.delete("/delete/:id", validateSession, deleteRoom);
 
 // Export the router
 module.exports = router;

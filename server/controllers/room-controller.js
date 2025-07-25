@@ -13,15 +13,16 @@ exports.getRooms = async (req, res) => {
 // controller to create a new room
 exports.createRoom = async (req, res) => {
   try {
-    const { name, description, addedUsers } = req.body;
+    const { name, description, addedUsers, createdBy } = req.body;
     //basic validation
-    if (!name || !description || !addedUsers) {
+    if (!name || !description || !addedUsers || !createdBy) {
       return res.status(400).json({ error: "All fields are required" });
     }
     const newRoom = new room({
       name,
       description,
       addedUsers,
+      createdBy
     });
     const savedRoom = await newRoom.save();
     res.status(201).json(savedRoom);
