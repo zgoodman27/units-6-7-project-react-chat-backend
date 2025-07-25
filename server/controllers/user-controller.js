@@ -7,7 +7,7 @@ const jwt = require("jsonwebtoken");
 exports.signup = async (req, res) => {
   try {
     // destructure the body to get details for the body
-    const { firstName, lastName, email, password } = req.body;
+    const { firstName, lastName, email, password, isAdmin } = req.body;
 
     // create a new user instance
     const user = new User({
@@ -15,6 +15,7 @@ exports.signup = async (req, res) => {
       lastName,
       email,
       password: await bcrypt.hash(password, 10), //hash the password 10 times
+      isAdmin: isAdmin === true || isAdmin === "true" //accepts either a string or boolean answer
     });
 
     // save the new user to the database
