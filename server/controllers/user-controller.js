@@ -85,3 +85,50 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// route to update user details
+exports.updateUser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const { firstName, lastName, email } = req.body;
+
+    // find the user by id
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // update user details
+    foundUser.firstName = firstName;
+    foundUser.lastName = lastName;
+    foundUser.email = email;
+
+    // save the updated user
+    const updatedUser = await foundUser.save();
+    res.status(200).json({
+      user: updatedUser,
+      message: "User details updated successfully",
+    });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
+
+// route to delete a user
+exports.deleteUser = async (req,res) => {
+  try {
+    const userId = req.params.id;
+
+    //find user by id
+    const foundUser = await User.findById(userId);
+    if (!foundUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    // delete the user
+    await User.findByIdAndDelete(userId);
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+}
