@@ -1,6 +1,7 @@
 // import the modules
 const { Router } = require("express");
 const { validateSession } = require("../middleware/validation");
+const adminOnly = require("../middleware/isAdmin");
 const {
   getRooms,
   createRoom,
@@ -19,10 +20,10 @@ router.get("/all", getRooms);
 router.post("/create", validateSession, createRoom);
 
 // UPDATE - /rooms/update
-router.put("/update/:id", validateSession, updateRoom);
+router.put("/update/:id", validateSession, adminOnly, updateRoom);
 
 // DELETE - /rooms/delete
-router.delete("/delete/:id", validateSession, deleteRoom);
+router.delete("/delete/:id", validateSession, adminOnly, deleteRoom);
 
 // Export the router
 module.exports = router;
