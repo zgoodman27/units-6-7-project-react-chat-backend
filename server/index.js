@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -23,6 +24,7 @@ mongoose.connect(process.env.MONGODB, {
 const app = express();
 //Middleware
 app.use(express.json());
+app.use(cors()); // Enable CORS for all routes
 
 // Routes 
 app.get('/api/health', (req, res) => {
