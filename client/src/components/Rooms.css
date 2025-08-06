@@ -1,0 +1,39 @@
+.rooms-container {
+    padding: 20px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.rooms-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.room-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 200ms, box-shadow 500ms;
+}
+
+.room-item:hover {
+    transform: translateY(+3px);
+}
+
+.room-name {
+    font-weight: bold;
+    color: white;
+    background-color: mediumblue;
+}
+
+.room-users {
+    font-size: large;
+    color: black;
+}
