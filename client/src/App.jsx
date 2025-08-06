@@ -43,7 +43,7 @@ export default function App() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/rooms", {
+        const response = await fetch("http://localhost:5000/api/rooms/all", {
           headers: {
             Authorization: `${token}`, //require token
           },
@@ -52,7 +52,9 @@ export default function App() {
         if (!response.ok) {
           throw new Error(data.error || "Failed to fetch Rooms");
         }
-        setRooms(data.rooms);
+        console.log("Fetched rooms data:", data);
+
+        setRooms(data.rooms || []);
       } catch (error) {
         console.error("Error fetching rooms: ", error.message);
         setError(error.message);
