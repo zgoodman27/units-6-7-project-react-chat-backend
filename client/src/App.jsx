@@ -54,7 +54,7 @@ export default function App() {
         }
         console.log("Fetched rooms data:", data);
 
-        setRooms(data.rooms || []);
+        setRooms(Array.isArray(data) ? data : data.rooms || []);
       } catch (error) {
         console.error("Error fetching rooms: ", error.message);
         setError(error.message);
@@ -62,6 +62,7 @@ export default function App() {
     };
     if (token) {
       fetchRooms();
+      console.log("Rooms state in App.jsx:", rooms);
     }
   }, [token]);
 
