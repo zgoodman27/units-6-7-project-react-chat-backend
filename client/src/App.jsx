@@ -1,8 +1,10 @@
 import React from "react";
 import Auth from "./components/Auth.jsx";
 import Rooms from "./components/Rooms.jsx";
+import Room from "./components/Room.jsx";
 import { useState } from "react";
 import { useEffect } from "react";
+import "./App.css";
 
 export default function App() {
   const [user, setUser] = useState(null);
@@ -55,6 +57,7 @@ export default function App() {
         console.log("Fetched rooms data:", data);
 
         setRooms(Array.isArray(data) ? data : data.rooms || []);
+        console.log("Rooms state in App.jsx:", rooms); 
       } catch (error) {
         console.error("Error fetching rooms: ", error.message);
         setError(error.message);
@@ -62,7 +65,6 @@ export default function App() {
     };
     if (token) {
       fetchRooms();
-      console.log("Rooms state in App.jsx:", rooms);
     }
   }, [token]);
 
@@ -74,7 +76,7 @@ export default function App() {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/jason",
+            "Content-Type": "application/json",
             Authorization: `${token}`,
           },
           body: JSON.stringify({ userId: user.id }),
@@ -91,29 +93,46 @@ export default function App() {
       setError(error.message);
     }
   };
+  // Find the current room if activeRoom is set
+  const currentRoom = activeRoom ? rooms.find(room => room._id === activeRoom) : null;
+
   return (
     <>
       {token ? (
         // Logged in view
-        <div>
-          <h1>Welcome, {user.firstName}!</h1>
-          {activeRoom ? (
-            <p>"You're in room: "{activeRoom}</p>
-          ) : (
-            <Rooms rooms={rooms} onJoinRoom={handleJoinRoom} />
-          )}
-          <button
-            onClick={() => {
-              setUser(null);
-              setToken(null);
-              localStorage.removeItem("token");
-              setRooms([]);
-              setActiveRoom(null);
-            }}
-          >
-            {" "}
-            Logout{" "}
-          </button>
+        <div className="app-container">
+          <div className="app-header">
+            <div className="welcome-section">
+              <h2 className="welcome-text">Welcome, {user.firstName}!</h2>
+              {activeRoom && (
+                <button 
+                  onClick={() => setActiveRoom(null)}
+                  className="back-button"
+                >
+                  ← Back to Rooms
+                </button>
+              )}
+            </div>
+            <button
+              onClick={() => {
+                setUser(null);
+                setToken(null);
+                localStorage.removeItem("token");
+                setRooms([]);
+                setActiveRoom(null);
+              }}
+              className="logout-button"
+            >
+              Logout
+            </button>
+          </div>
+          <div className="main-content">
+            {activeRoom ? (
+              <Room roomId={activeRoom} roomName={currentRoom?.name} />
+            ) : ( 
+              <Rooms rooms={rooms} onJoinRoom={handleJoinRoom} />
+            )}
+          </div>
         </div>
       ) : (
         // not logged in view

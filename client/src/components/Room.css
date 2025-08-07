@@ -1,0 +1,97 @@
+/* Room.css - Basic styling for room/chat component */
+
+.room-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.room-card {
+  background: white;
+  padding: 30px;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-width: 600px;
+  margin: 20px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.room-title {
+  color: #333;
+  font-size: 20px;
+  margin: 0;
+}
+
+.messages-container {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.messages-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.message-item {
+  background: white;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+}
+
+.loading-text, .error-text {
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.error-text {
+  color: #d32f2f;
+}
+
+.message-input-section {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.message-input {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+}
+
+.message-input:focus {
+  border-color: #4f46e5;
+}
+
+.send-button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: #3730a3;
+}

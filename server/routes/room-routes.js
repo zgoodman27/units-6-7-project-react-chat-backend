@@ -7,6 +7,7 @@ const {
   createRoom,
   updateRoom,
   deleteRoom,
+  joinRoom,
 } = require("../controllers/room-controller");
 const { get } = require("mongoose");
 
@@ -18,6 +19,9 @@ router.get("/all", getRooms);
 
 // POST - /rooms/create
 router.post("/create", validateSession, createRoom);
+
+// POST - /rooms/:id/join - join a room
+router.post("/:id/join", validateSession, joinRoom);
 
 // UPDATE - /rooms/update
 router.put("/update/:id", validateSession, adminOnly, updateRoom);

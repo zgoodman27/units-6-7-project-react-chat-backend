@@ -55,3 +55,36 @@ exports.deleteRoom = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+// controller to join a room
+exports.joinRoom = async (req, res) => {
+  try {
+    const { id } = req.params; // room ID from URL
+    const { userId } = req.body; // user ID from request body
+    
+    // Find the room
+    const roomToJoin = await room.findById(id);
+    if (!roomToJoin) {
+      return res.status(404).json({ message: "Room not found." });
+    }
+    
+    // Check if user is already in the room
+    if (roomToJoin.addedUsers.includes(userId)) {
+      return res.status(200).json({ 
+        message: "User already in room", 
+        room: roomToJoin 
+      });
+    }
+    
+    // Add user to the room
+    roomToJoin.addedUsers.push(userId);
+    const updatedRoom = await roomToJoin.save();
+    
+    res.status(200).json({ 
+      message: "Successfully joined room", 
+      room: updatedRoom 
+    });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
