@@ -35,6 +35,11 @@ export default function Room({ roomId, roomName }) {
   const handleSendMessage = async () => {
     if (!newMessage.trim()) return // Prevent sending empty messages
     try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}')
+      const userName = user.firstName && user.lastName 
+        ? `${user.firstName} ${user.lastName}` 
+        : user.email || 'Anonymous'
+        
       const response = await fetch(`http://localhost:5000/api/messages`, {
         method: 'POST',
         headers: {
@@ -44,7 +49,7 @@ export default function Room({ roomId, roomName }) {
         body: JSON.stringify({ 
           body: newMessage, 
           room: roomId,
-          user: localStorage.getItem('userId') || 'Anonymous' 
+          user: userName
         })
       })
       const data = await response.json()
@@ -85,7 +90,7 @@ export default function Room({ roomId, roomName }) {
             <ul className="messages-list">
               {messages.map((message) => (
                 <li key={message._id} className="message-item">
-                  {message.body}
+                  <strong>{message.user}:</strong> {message.body}
                 </li>
               ))}
             </ul>

@@ -34,6 +34,7 @@ export default function App() {
         setUser(data.user); // store user in state
         setToken(data.token); // store token in state
         localStorage.setItem("token", data.token); // store token in localStorage
+        localStorage.setItem("user", JSON.stringify(data.user)); // store user data in localStorage
         setError(null); // clear any previous errors
       }
     } catch (error) {
@@ -118,6 +119,7 @@ export default function App() {
                 setUser(null);
                 setToken(null);
                 localStorage.removeItem("token");
+                localStorage.removeItem("user");
                 setRooms([]);
                 setActiveRoom(null);
               }}
