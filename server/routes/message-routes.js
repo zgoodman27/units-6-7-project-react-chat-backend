@@ -11,9 +11,9 @@ Router.get('/:room', messageController.getMessages);
 Router.post('/', messageController.createMessage);
  
 // Route to update a message
-Router.put('/update/:id', validateSession, adminOnly, messageController.updateMessage);
+Router.put('/:id', validateSession, messageController.updateMessage);
 
 // Route to delete a message
-Router.delete('/delete/:id', validateSession, adminOnly, messageController.deleteMessage);
+Router.delete('/:id', validateSession, messageController.deleteMessage);
 
 module.exports = Router;

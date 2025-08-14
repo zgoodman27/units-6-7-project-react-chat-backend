@@ -58,7 +58,7 @@ export default function App() {
         console.log("Fetched rooms data:", data);
 
         setRooms(Array.isArray(data) ? data : data.rooms || []);
-        console.log("Rooms state in App.jsx:", rooms); 
+        console.log("Rooms state in App.jsx:", rooms);
       } catch (error) {
         console.error("Error fetching rooms: ", error.message);
         setError(error.message);
@@ -78,7 +78,7 @@ export default function App() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `${token}`,
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ userId: user.id }),
         }
@@ -89,13 +89,16 @@ export default function App() {
       }
       setActiveRoom(roomId);
       console.log(`Joined room: ${roomId}`);
+      console.log("New Room member count: ", data.room.members.length);
     } catch (error) {
       console.error("Join room error: ", error.message);
       setError(error.message);
     }
   };
   // Find the current room if activeRoom is set
-  const currentRoom = activeRoom ? rooms.find(room => room._id === activeRoom) : null;
+  const currentRoom = activeRoom
+    ? rooms.find((room) => room._id === activeRoom)
+    : null;
 
   return (
     <>
@@ -106,7 +109,7 @@ export default function App() {
             <div className="welcome-section">
               <h2 className="welcome-text">Welcome, {user.firstName}!</h2>
               {activeRoom && (
-                <button 
+                <button
                   onClick={() => setActiveRoom(null)}
                   className="back-button"
                 >
@@ -131,7 +134,7 @@ export default function App() {
           <div className="main-content">
             {activeRoom ? (
               <Room roomId={activeRoom} roomName={currentRoom?.name} />
-            ) : ( 
+            ) : (
               <Rooms rooms={rooms} onJoinRoom={handleJoinRoom} />
             )}
           </div>

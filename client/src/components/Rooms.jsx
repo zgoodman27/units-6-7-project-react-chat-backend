@@ -24,7 +24,7 @@ const Rooms = ({ rooms, onJoinRoom }) => {
             onClick={() => onJoinRoom(room._id)}
           >
             <span className="room-name">{room.name}</span>
-            <span className="room-users">{room.users} Members: </span>
+            <span className="room-users"> Members: {room.memberCount}</span>
           </li>
         ))}
       </ul>

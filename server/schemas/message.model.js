@@ -13,6 +13,10 @@ const messageSchema = new Schema({
   },
   room: String,
   body: String,
+  userId: {
+    type: String,
+    required: true,
+  },
 });
 
 // exporting the message model

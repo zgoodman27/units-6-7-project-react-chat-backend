@@ -4,7 +4,12 @@ const room = require("../schemas/room.model");
 exports.getRooms = async (req, res) => {
   try {
     const rooms = await room.find({});
-    res.status(200).json(rooms);
+    // Add memberCount property to each room
+    const roomsWithMemberCount = rooms.map(room => ({
+      ...room.toObject(),
+      memberCount: Array.isArray(room.addedUsers) ? room.addedUsers.length : 0
+    }));
+    res.status(200).json(roomsWithMemberCount);
   } catch (error) {
     res.status(500).json({ message: "Error fetching rooms" });
   }
@@ -79,6 +84,8 @@ exports.joinRoom = async (req, res) => {
     // Add user to the room
     roomToJoin.addedUsers.push(userId);
     const updatedRoom = await roomToJoin.save();
+    room.memberCount = roomToJoin.addedUsers.length; // Update member count
+
     
     res.status(200).json({ 
       message: "Successfully joined room", 

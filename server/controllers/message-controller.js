@@ -4,7 +4,7 @@ const message = require("../schemas/message.model");
 exports.getMessages = async (req, res) => {
   try {
     const roomId = req.params.room;
-    const messages = await message.find({ room: roomId }).sort({ when: -1 });
+    const messages = await message.find({ room: roomId }).sort({ when: 1 });
     res.status(200).json(messages);
   } catch (error) {
     console.error("Error fetching messages:", error);
@@ -14,15 +14,16 @@ exports.getMessages = async (req, res) => {
 // controller to create a new message
 exports.createMessage = async (req, res) => {
   try {
-    const { user, body, room } = req.body;
+    const { user, body, room, userId } = req.body;
     //basic validation
-    if (!user || !body || !room) {
+    if (!user || !body || !room || !userId) {
       return res.status(400).json({ error: "All fields are required" });
     }
     const newMessage = new message({
       user,
       body,
       room,
+      userId,
     });
     const savedMessage = await newMessage.save();
     res.status(201).json(savedMessage);
@@ -43,7 +44,7 @@ exports.updateMessage = async (req, res) => {
     if (!updatedMessage) {
       return res.status(404).json({ error: "Message not found" });
     }
-    res.status(200).json(updatedMessage, "Message updated successfully");
+    res.status(200).json(updatedMessage);
   } catch (error) {
     console.error("Error updating message:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -58,7 +59,7 @@ exports.deleteMessage = async (req, res) => {
         if (!deletedMessage) {
             return res.status(404).json({error: "Message not found"});
         }
-        res.status(200).json({message: "Message deleted successfully"});
+        res.status(200).json(deletedMessage);
     } catch (error) {
         console.error("Error deleting message:", error);
         res.status(500).json({ error: "Internal server error" });
